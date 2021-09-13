@@ -22,7 +22,7 @@ driver.find_element_by_id("gsc-i-id1").send_keys(str(input("Enter Keyword: ")))
 driver.find_element_by_xpath("//table[@class='gsc-search-box']/tbody[1]/tr[1]/td[2]/button[1]").send_keys(Keys.ENTER)
 
 time.sleep(5)
-print(driver.current_url)
+print(driver.current_url) # Eben so Debug Code!
 current_url = driver.current_url
 
 url_id = "gsc-webResult gsc-result"
