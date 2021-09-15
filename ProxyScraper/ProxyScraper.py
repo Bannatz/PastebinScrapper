@@ -13,7 +13,7 @@ class scrape():
         proxys = f.readlines()
 
         for proxy in proxys:
-            proxy = str(proxys_socks4).replace("\n", "")
+            proxy = str(proxy).replace("\n", "")
             clean_proxys.append(proxy)
 
         f.close()
@@ -53,31 +53,3 @@ class scrape():
         f.close()
 
         return clean_proxys
-
-print("""\
-ProxyScraper
-
-[1] http
-[2] Socks4
-[3] Socks5
-""")
-
-s = str(input())
-
-if s == "1":
-    print("Scraping http with max timeout 3000ms")
-    scrape.http(3000)
-    print("finished")
-    sys.exit()
-
-elif s == "2":
-    print("Scraping Socks4 with max timeout 3000ms")
-    scrape.socks4(3000)
-    print("finished")
-    sys.exit()
-
-elif s == "3":
-    print("Scraping Socks5 with max timeout 3000ms")
-    scrape.socks5(3000)
-    print("finished")
-    sys.exit()
