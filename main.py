@@ -1,40 +1,48 @@
 from selenium import webdriver
 from selenium.webdriver.firefox.options import Options
 from selenium.webdriver.common.keys import Keys
-from bs4 import BeautifulSoup
+from html.parser import HTMLParser as parser
+from scrapy.selector import Selector
+from scrapy.http import HtmlResponse
 import time
+import os
 
-# Optionen :D
-options = Options()
-options.add_argument("--headless")
+def Scraping():
+    global driver
+    # Optionen :D
+    options = Options()
+    options.add_argument("--headless")
 
-# Treiber
-driver = webdriver.Firefox(options=options)
+    # Treiber
+    driver = webdriver.Firefox(options=options)
 
-# URL Definition
-url = "https://pastebin.ga/"
+    #https://pastebin.ga/
 
-driver.get(url)
+    # URL Definition
+    url = "https://pastebin.ga/"
 
-# Suchen von den Elementen die er braucht zum Leechen
-driver.find_element_by_id("gsc-i-id1").send_keys(str(input("Enter Keyword: ")))
+    driver.get(url)
 
-driver.find_element_by_xpath("//table[@class='gsc-search-box']/tbody[1]/tr[1]/td[2]/button[1]").send_keys(Keys.ENTER)
+    # Suchen von den Elementen die er braucht zum Leechen
+    driver.find_element_by_id("gsc-i-id1").send_keys(str(input("Enter Keyword: ")))
 
-time.sleep(5)
+    driver.find_element_by_xpath("//table[@class='gsc-search-box']/tbody[1]/tr[1]/td[2]/button[1]").send_keys(Keys.ENTER)
 
-print(driver.current_url) # Ebenso Debug Line
-current_url = driver.current_url
+    time.sleep(3)
 
-url_id = "gsc-webResult gsc-result"
+    driver.save_screenshot("Test1.png") # Debug Code
 
-urlsoup = BeautifulSoup(current_url, "html_parser")
+    # Attila Du Hurensohn
+    #driver.quit()
+    # Remove the Log File because its like Attila!
+    rm_file = ["geckodriver.log"]
+    
+    for file in rm_file:
+        os.remove(file)
+    
+    results  = driver.find_element_by_xpath("(//a[@class='gs-title'])[1]").get_attribute("data-ctorig")
+    print(results) 
 
-pastebin_data = urlsoup.find_all("div", attrs={"class": url_id})
+Scraping()
+driver.quit()
 
-time.sleep(3)
-
-driver.save_screenshot("Test1.png") # Debug Code
-
-# Attila Du Hurensohn
-driver.quit() 
