@@ -56,6 +56,8 @@ class Scrapper():
             driver = webdriver.Firefox(options=options)
 
             driver.get(url)
+            print(url) # Debug
+            input("Bestätige das Lutschen: ") # Debug
             s = driver.find_element_by_xpath("//div[@class='page']/following-sibling::div[1]").text
             print(s)
         except Exception:
