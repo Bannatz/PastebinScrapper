@@ -34,11 +34,16 @@ def Scraping():
     # Remove the Log File because its like Attila!
     rm_file = ["geckodriver.log"]
     
+
     for file in rm_file:
         os.remove(file)
-    
-    results  = driver.find_element_by_xpath("(//a[@class='gs-title'])[1]").get_attribute("data-ctorig")
-    print(results) 
+
+    old_results = ""
+    for i in range(1,20):
+        results = driver.find_element_by_xpath("(//a[@class='gs-title'])["+str(i)+"]").get_attribute("data-ctorig")
+        if results != old_results:
+            print(results)
+            old_results = results
 
 Scraping()
 driver.quit()
