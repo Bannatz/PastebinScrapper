@@ -1,9 +1,6 @@
 from selenium import webdriver
 from selenium.webdriver.firefox.options import Options
 from selenium.webdriver.common.keys import Keys
-from html.parser import HTMLParser as parser
-from scrapy.selector import Selector
-from scrapy.http import HtmlResponse
 import time
 import os
 
