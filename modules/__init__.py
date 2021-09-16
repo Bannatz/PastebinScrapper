@@ -1,1 +1,1 @@
-__all__ = ["ProxyScraper", "Scrapper.py"]
+__all__ = ["ProxyScraper", "Scrapper"]
