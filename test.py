@@ -4,7 +4,7 @@ k = input("Enter Keyword: ")
 
 p = Scrapper.Scraping(k)
 
-for url in range(1,10):
+for url in p:
     try:
         u = Scrapper.TextScrape(url)
         if ":" in u:
