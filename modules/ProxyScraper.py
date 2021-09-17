@@ -1,6 +1,6 @@
 import sys
 import os
-import urllib.request
+import urllib, urllib.request
 
 class scrape():
 
@@ -80,11 +80,13 @@ class check():
 
     def check(type, proxy, timeout):
         t = timeout
-        p = urllib.request.ProxyHandler({str(type):str(proxy)})
-        o = urllib.request.build_opener(p)
         try:
-            f = o.open("http://google.com", timeout=t)
-            f.read(1)
+            p = urllib.request.ProxyHandler({str(type):str(proxy)})
+            o = urllib.request.build_opener(p)
+            o.addheaders = [("User-agent", "Mozilla/5.0")]
+            urllib.install_opener(o)
+            req = urllib.Request("http://www.google.de")
+            sock = urllib.urlopen(req)
             r = 1
         except Exception:
             r = 2
