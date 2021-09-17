@@ -46,8 +46,22 @@ class Scrapper():
         finally:
             driver.close()
             driver.quit()
-    
-    def TextScrape(url):
+
+    def check(string, mode):
+        string = string.split("\n")
+        list = []
+        for blabla in string:
+            if ":" in blabla or ";" in blabla:
+                if "http" not in blabla and "www" not in blabla:
+                    if mode == 1:
+                        if "@" in blabla:
+                            list.append(str(blabla))
+                    else:
+                        list.append(str(blabla))
+        return list
+
+
+    def TextScrape(url, mode):
         try:
             options = Options()
             options.add_argument("--headless")
@@ -59,8 +73,9 @@ class Scrapper():
             print(url)
             time.sleep(1)
             s = driver.find_element_by_xpath("//div[@class='page']/following-sibling::div[1]").text
-            print(s)
+            s = Scrapper.check(str(s), mode)
+            return s
         except Exception:
-            print("Well NO!")
+            print("Something went wroooong :o")
         finally:
             driver.close()
