@@ -1,1 +1,1 @@
-__all__ = ["ProxyScraper", "Scrapper", "format"]
+__all__ = ["ProxyScraper", "Scrapper", "format", "checker"]
