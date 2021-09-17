@@ -1,4 +1,5 @@
 from modules.Scrapper import *
+from modules.format import *
 import sys, os
 
 def get_mode(input):
@@ -29,17 +30,21 @@ k = input("\nEnter Keywords: ")
 
 p = Scrapper.Scraping(k)
 
-end_list = []
+list = []
 
 for url in p:
     u = Scrapper.TextScrape(url, m)
     if u is not None:
-        end_list.extend(u)
+        list.extend(u)
     else:
         print("No combos found here :c")
-print(end_list)
-combos = "\n".join(end_list)
-open("combos.txt", "w").write(combos)
-print("Finished")
+
+combo_list = []
+for c in list:
+    c = c.replace(";", ":")
+    c = format.combo(c)
+    combo_list.append(c)
+
+print(combo_list) # temp
 
 sys.exit()
