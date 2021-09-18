@@ -3,7 +3,7 @@ from modules.format import *
 from modules.ProxyScraper import *
 from modules.proxychecker import *
 from modules.checker import *
-import sys, os
+import sys
 
 def get_mode(input):
 
@@ -30,8 +30,17 @@ m = get_mode(m)
 
 if m == None:
     m = 0
+
+print("\nJetzt brauchen wir Proxys!")
+t = input("Timeout: ")
+k = input("\nEnter Keywords for scraping: ")
+time.sleep(1)
+print("Start Proxy checking")
+p = scrape.http(t) 
+proxy_list = Check(p)
+print("\nFinshed Proxy checking!")
+time.sleep(1)
 print("\nNow its scraping time :D\n")
-k = input("\nEnter Keywords: ")
 
 p = Scrapper.Scraping(k)
 
@@ -49,12 +58,6 @@ for c in list:
     c = c.replace(";", ":")
     c = format.combo(c)
     combo_list.append(c)
-
-print("\nJetzt brauchen wir Proxys!")
-t = input("Timeout: ")
-p = scrape.http(t)
-proxy_list = Check(p)
-print("Finshed Proxy checking!\nNow its Account checking Time :D\n")
 
 Checker(combo_list, proxy_list)
 
