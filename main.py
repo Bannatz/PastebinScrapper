@@ -56,6 +56,6 @@ p = scrape.http(t)
 proxy_list = Check(p)
 print("Finshed Proxy checking!\nNow its Account checking Time :D\n")
 
-checker(combo_list, proxy_list)
+Checker(combo_list, proxy_list)
 
 sys.exit()
