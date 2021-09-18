@@ -1,13 +1,5 @@
 from ProxyScraper import *
 import urllib.request, socket, urllib.error,threading
-from multiprocessing import Process, Queue
-def hallo():
-    i = input("Bitte Timeout danke: ")
-    print("http")
-    th = int(input("Wie viele Threads ?: "))
-  
-    s = scrape.http(t)
-    return s
 
 def is_bad_proxy(pip):    
     try:
@@ -25,21 +17,12 @@ def is_bad_proxy(pip):
         return True
     return False
 
-def main(s):
+def Check(s):
     for proxy in s:
-        if is_bad_proxy(t, proxy):
+        if is_bad_proxy(proxy):
             print("Bad Proxy: " + proxy)
         else:
             print("Good Proxy: " + proxy)
 
-def multikulti(s):
-    processes = [Process(target=main, args=(s)) for x in range(th)]
 
-    for p in processes:
-        p.start()
 
-    for p in processes:
-        p.join()
-    
-s = hallo()
-multikulti(s)
