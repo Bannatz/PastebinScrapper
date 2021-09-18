@@ -1,7 +1,6 @@
-from ProxyScraper import *
 import urllib.request, socket, urllib.error,threading
 
-def is_bad_proxy(pip):    
+def is_bad_proxy(pip):
     try:
         proxy_handler = urllib.request.ProxyHandler({"http": pip})
         opener = urllib.request.build_opener(proxy_handler)
@@ -9,20 +8,22 @@ def is_bad_proxy(pip):
         urllib.request.install_opener(opener)
         req=urllib.request.Request('http://www.google.com')
         sock=urllib.request.urlopen(req)
+        return True
     except urllib.error.HTTPError as e:
         print('Error code: ', e.code)
-        return e.code
+        return False
     except Exception as detail:
         print("ERROR:", detail)
-        return True
-    return False
+        return False
 
 def Check(s):
+    checked_p = []
     for proxy in s:
-        if is_bad_proxy(proxy):
+        if is_bad_proxy(proxy) is False:
             print("Bad Proxy: " + proxy)
         else:
             print("Good Proxy: " + proxy)
+            checked_p.append(proxy)
 
 
 
