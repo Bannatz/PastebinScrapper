@@ -24,6 +24,6 @@ def Check(s):
         else:
             print("Good Proxy: " + proxy)
             checked_p.append(proxy)
-
+    return checked_p
 
 
