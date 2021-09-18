@@ -14,16 +14,9 @@ class scrape():
 
         for proxy in proxys:
             proxy = str(proxy).replace("\n", "")
-            
-            c = check.check("http", proxy, timeout)
-            if c == 1:
-                print(proxy+" Working")
-                clean_proxys.append(proxy)
-            else:
-                print(proxy+" Failed")
+            clean_proxys.append(proxy)
 
         f.close()
-
         return clean_proxys
 
 
@@ -37,18 +30,9 @@ class scrape():
 
         for proxy in proxys:
             proxy = str(proxy).replace("\n", "")
-
-            c = check.check("socks4", proxy, timeout)
-            if c == 1:
-                print(proxy+" Working")
-                clean_proxys.append(proxy)
-            else:
-                print(proxy+" Failed")
-
             clean_proxys.append(proxy)
 
         f.close()
-        
         return clean_proxys
 
 
@@ -62,33 +46,6 @@ class scrape():
 
         for proxy in proxys:
             proxy = str(proxy).replace("\n", "")
-
-            c = check.check("socks5", proxy, timeout)
-            if c == 1:
-                print(proxy+" Working")
-                clean_proxys.append(proxy)
-            else:
-                print(proxy+" Failed")
-
             clean_proxys.append(proxy)
-
         f.close()
-
         return clean_proxys
-
-class check():
-
-    def check(type, proxy, timeout):
-        t = timeout
-        try:
-            p = urllib.request.ProxyHandler({str(type):str(proxy)})
-            o = urllib.request.build_opener(p)
-            o.addheaders = [("User-agent", "Mozilla/5.0")]
-            urllib.install_opener(o)
-            req = urllib.Request("http://www.google.de")
-            sock = urllib.urlopen(req)
-            r = 1
-        except Exception:
-            r = 2
-
-        return r
